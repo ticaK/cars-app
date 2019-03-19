@@ -58,6 +58,7 @@
 <script>
 import {cars} from "../services/Cars"
 export default {
+    props:['id'],
     data(){
         return {
             years:[1990,1991,1992,1993,1994,1995,1996,1997,1998,1999,
@@ -65,7 +66,7 @@ export default {
             2010,2011,2012,2013,2014,2015,2016,2017,2018],
 
             car:{brand:"",model:"",year:1900,maxSpeed:0,numberOfDoors:0,isAutomatic:"",engine:""},
-            // errors: []
+           
         }
     },
     methods:{
@@ -92,7 +93,16 @@ export default {
             alert(car);
         }
 
-    }
+    },
+    
+// async beforeUpdate() {
+//         try{
+//             const{data}=await cars.getId(this.id);
+//             this.car=data;
+//         } catch(error){
+//             console.log(error);
+//         }
+//     }    
 
 }
 </script>

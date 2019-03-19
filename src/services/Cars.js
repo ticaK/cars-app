@@ -13,7 +13,7 @@ export default class Cars {
 
     add({ brand, model, year, maxSpeed, isAutomatic, engine, numberOfDoors }) {
         return http
-            .post('cars', {brand, model, year, maxSpeed, numberOfDoors, isAutomatic, engine
+            .post('/cars', {brand, model, year, maxSpeed, numberOfDoors, isAutomatic, engine
             })
             .then(({ data }) => data)       
     }
@@ -21,6 +21,11 @@ export default class Cars {
     getCars(){
         return this.get('/cars');  
     }
+
+    getId(id){
+        return this.get(`cars/${id}`);  
+    }
+
 
     // find(id){
     // return this.get(`posts/${id}`);  

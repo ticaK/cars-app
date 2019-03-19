@@ -9,6 +9,7 @@
        <p>is Automatic{{car.isAutomatic}}</p>
        <p>engine:{{car.engine}}</p>
        <p>numberOfDoors:{{car.numberOfDoors}}</p>
+       <button @click="editCar()" class="btn">Edit</button>
        <hr>
     </div>
   </div>
@@ -30,6 +31,11 @@ export default {
         } catch(error) {
             console.log(error);
         }
+   },
+   methods:{
+   editCar(){
+     this.$router.push('/edit/:id')
+   }
    }
 }
 </script>
