@@ -11,6 +11,20 @@ export default class Cars {
         return http.post(url,body);
     }
 
+    add({ brand, model, year, maxSpeed, isAutomatic, engine, numberOfDoors }) {
+        return http
+            .post('cars', { 
+                brand, 
+                model, 
+                year, 
+                maxSpeed, 
+                numberOfDoors,
+                isAutomatic, 
+                engine
+            })
+            .then(({ data }) => data)       
+    }
+
     getCars(){
         return this.get('/cars');  
     }

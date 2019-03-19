@@ -3,6 +3,8 @@ import VueRouter from 'vue-router'
 import App from './App.vue'
 
 import AppCars from './components/AppCars'
+import AddCar from './components/AddCar'
+
 
 
 
@@ -12,9 +14,10 @@ Vue.config.productionTip = false
 const routes = [
   {path:'/',component: AppCars},
   {path:'/cars',component: AppCars},
-  // {path:'/products',component: AppProducts},
-  // {path:'/customers/:id',component: AppCustomers, name:"latest-purchases"},
-  // {path:'/products/:id',component: AppProducts, name:"single-product"}
+  {path:'/add',component: AddCar},
+  
+
+  // {path:'/cars/:id',component: AppProducts, name:"single-car"}
   
 ]
 

@@ -3,6 +3,8 @@
     <ul>
 
     <li><strong><router-link to="/cars">Cars</router-link></strong></li>  
+    <li><strong><router-link to="/add">Add</router-link></strong></li>  
+    
    
     </ul>
 </div>
