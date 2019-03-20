@@ -4,23 +4,25 @@ const http = axios.create({
 });
 
 export default class Cars {
-    get(url){
-        return http.get(url);
+
+    getAll(){
+        return http.get('/cars');  
     }
     post(url,body){
         return http.post(url,body);
     }
 
-    add({ brand, model, year, maxSpeed, isAutomatic, engine, numberOfDoors }) {
-        return http
-            .post('/cars', {brand, model, year, maxSpeed, numberOfDoors, isAutomatic, engine
-            })
-            .then(({ data }) => data)       
+    // add({ brand, model, year, maxSpeed, isAutomatic, engine, numberOfDoors }) {
+    //     return http
+    //         .post('/cars', {brand, model, year, maxSpeed, numberOfDoors, isAutomatic, engine
+    //         })
+    //         .then(({ data }) => data)       
+    // }
+    add(car){
+        return http.post('/cars',car)
     }
 
-    getCars(){
-        return this.get('/cars');  
-    }
+    
 
     getId(id){
         return this.get(`cars/${id}`);  

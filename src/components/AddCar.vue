@@ -4,22 +4,20 @@
 
             <div class="form-group"> 
                 <label>Brand:</label>
-                <input type="text" class="form-control" v-model="car.brand" required minlength=2>
+                <input type="text" class="form-control" required="required" minlength=2 v-model="car.brand">
             </div>
 
 
             <div class="form-group"> 
                 <label>Model:</label>
-                <input type="text" class="form-control" v-model="car.model" required minlength=2>
+                <input type="text" class="form-control" required="required" minlength=2 v-model="car.model">
             </div>
 
             <div class="form-group"> 
                 <label>Year:</label>
-                    <select class="form-control" v-model="car.year" required>
+                    <select class="form-control" required="required" v-model="car.year">
                         <option v-for="year in years" :key="year" :value="year" >{{year}}</option><br>
                     </select><br>
-                    <!-- <input type="number" name="year" min="1990" max="2018" v-model="car.year"> -->
-
             </div>
 
             <div class="form-group"> 
@@ -29,11 +27,12 @@
 
             <div class="form-group"> 
                 <label>Number of doors</label>
-                <input type="number" class="form-control" v-model="car.numberOfDoors" required>
+                <input type="number" class="form-control" required="required" v-model="car.numberOfDoors" >
             </div>
-        <div class="form-group"> 
-            Is automatic:<input type="checkbox"  value="True" v-model="car.isAutomatic" required>  <br>
-        </div>
+
+            <div class="form-group"> 
+                Is automatic:<input type="checkbox"  value="True" v-model="car.isAutomatic">  <br>
+            </div>
 
         <div class="form-group"> 
     
@@ -44,8 +43,8 @@
         </div>
 
         <button class="btn btn-success" type="submit">Add car</button>
-        <button @click="reset" class="btn btn-danger">Reset</button>
-        <button @click="preview" class="btn btn-info">Preview</button>
+        <button @click="reset" type="reset" class="btn btn-danger">Reset</button>
+        <button @click="preview" type="button" class="btn btn-info">Preview</button>
         
         
         
@@ -61,50 +60,50 @@ export default {
     props:['id'],
     data(){
         return {
-            years:[1990,1991,1992,1993,1994,1995,1996,1997,1998,1999,
-            2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,
-            2010,2011,2012,2013,2014,2015,2016,2017,2018],
+            years:this.years(),
 
-            car:{brand:"",model:"",year:1900,maxSpeed:0,numberOfDoors:0,isAutomatic:"",engine:""},
+            car:{brand:"", model:"", year:1900, maxSpeed:0, numberOfDoors:0, isAutomatic:"", engine:""},
            
         }
     },
     methods:{
+        years(){
+            let years=[];
+            for(let i = 1990; i < 2019; i++){
+                years.push(i);
+            }
+            return years;
+        },
        
         addCar() {                
-                cars
-                .add(this.car)
-                .then(() => {
+                cars.add(this.car)
+                .then((success) => {
                     this.car = {}
                     this.$router.push('/cars')
+                }).catch((error)=>{
+                         console.log(error)
                 })
-            },
+
+        },
+
         reset(){
             this.car={};
         },
+
+
         preview(){
-            let car="";
-            car+= this.car.model+ " "+
-            this.car.year+" "+
-            this.car.maxSpeed+" "
-            this.car.numberOfDoors+" "
-            this.car.isAutomatic+" "+
-            this.car.engine+" ";
-            alert(car);
+            let details= `brand:${this.car.brand}, model:${this.car.model}, year:${this.car.year},maximum speed: ${this.car.maxSpeed},number of Doors: ${this.car.numberOfDoors},engine: ${this.car.engine},automatic:${this.car.isAutomatic}`;
+            alert(details);
         }
-
-    },
-    
-// async beforeUpdate() {
-//         try{
-//             const{data}=await cars.getId(this.id);
-//             this.car=data;
-//         } catch(error){
-//             console.log(error);
-//         }
-//     }    
-
+    }
 }
+
+
+          
+
+    
+
+
 </script>
 
 <style scoped>
