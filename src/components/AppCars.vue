@@ -2,6 +2,7 @@
   <div id="app">
     <table>
       <tr>
+        <th>id</th>
         <th>brand</th>
         <th>model</th>
         <th>year</th>
@@ -10,8 +11,11 @@
         <th>engine</th>
         <th>numberOfDoors</th>
         <th>Edit</th>
+        <th>Delete</th>
+
        </tr>
        <tr v-for="car in cars" :key="car.id">
+         <td>{{car.id}}</tidd>
          <td>{{car.brand}}</td>
          <td>{{car.model}}</td>
          <td>{{car.year}}</td>
@@ -19,7 +23,10 @@
          <td>{{car.isAutomatic}}</td>
          <td>{{car.engine}}</td>
          <td>{{car.numberOfDoors}}</td>
-      <td><button @click="editCar()" class="btn">Edit</button></td>
+      <!-- <td><button @click="editCar(car)" class="btn">Edit</button></td> -->
+    <td> <router-link :to="{ name: 'edit', params: { id: car.id } }" class="btn btn-default">Edit</router-link></td>
+
+      <td><button @click="deleteCar(car)" class="btn">Delete</button></td>
 
       </tr>
     </table>
@@ -35,6 +42,7 @@ export default {
             cars:[]
         }
     },
+    props:['id'],
     async created(){
         try{
             const{data}=await cars.getAll();
@@ -44,10 +52,17 @@ export default {
         }
    },
    methods:{
-   editCar(){
-     this.$router.push('/edit/:id')
-   }
-   }
+     
+      
+      deleteCar(car) {                
+        cars.delete(car.id)
+        .then((success) => {
+            this.cars = this.cars.filter(c => c !== car)
+        }).catch((error)=>{
+                console.log(error)
+        })
+      }  
+  }
 }
 </script>
 

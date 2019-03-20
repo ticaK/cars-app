@@ -12,26 +12,23 @@ export default class Cars {
         return http.post(url,body);
     }
 
-    // add({ brand, model, year, maxSpeed, isAutomatic, engine, numberOfDoors }) {
-    //     return http
-    //         .post('/cars', {brand, model, year, maxSpeed, numberOfDoors, isAutomatic, engine
-    //         })
-    //         .then(({ data }) => data)       
-    // }
+    
     add(car){
         return http.post('/cars',car)
     }
 
-    
-
-    getId(id){
-        return this.get(`cars/${id}`);  
+    delete(id){
+        return http.delete(`cars/'${id}`);
     }
 
+    getId(id){
+        return http.get(`cars/${id}`);  
+    }
 
-    // find(id){
-    // return this.get(`posts/${id}`);  
-    // }
+    edit(car){
+        return http.put(`cars/${car.id}`,car)
+    }
+    
    
     
 }

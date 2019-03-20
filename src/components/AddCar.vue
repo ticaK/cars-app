@@ -1,6 +1,7 @@
 <template>
     <div>
-        <form @submit.prevent="addCar()">
+        <h1>{{ this.car.id ? 'Edit car' : 'Add car'}}</h1>
+        <form @submit.prevent="onSubmit">
 
             <div class="form-group"> 
                 <label>Brand:</label>
@@ -57,22 +58,31 @@
 <script>
 import {cars} from "../services/Cars"
 export default {
-    props:['id'],
     data(){
         return {
-            years:this.years(),
+            years:this.getYears(),
 
-            car:{brand:"", model:"", year:1900, maxSpeed:0, numberOfDoors:0, isAutomatic:"", engine:""},
+            car:{ brand:"", model:"", year:1900, maxSpeed:0, numberOfDoors:0, isAutomatic:"", engine:""},
+            
            
         }
     },
     methods:{
-        years(){
+        getYears(){
             let years=[];
             for(let i = 1990; i < 2019; i++){
                 years.push(i);
             }
             return years;
+        },
+
+        onSubmit () {
+            if (this.car.id) {
+                this.editCar()
+            }else {
+                this.addCar()
+            }
+            
         },
        
         addCar() {                
@@ -85,7 +95,15 @@ export default {
                 })
 
         },
+        editCar(){
+        cars.edit(this.car)
+        .then((success)=>{
+           this.$router.push('/cars')
+        }).catch((error)=>{
+          console.log(error)
+        })
 
+      },
         reset(){
             this.car={};
         },
@@ -95,7 +113,13 @@ export default {
             let details= `brand:${this.car.brand}, model:${this.car.model}, year:${this.car.year},maximum speed: ${this.car.maxSpeed},number of Doors: ${this.car.numberOfDoors},engine: ${this.car.engine},automatic:${this.car.isAutomatic}`;
             alert(details);
         }
-    }
+    },
+     created () {
+    this.$route.params.id && cars.getId(this.$route.params.id)
+      .then((response) => {
+        this.car = response.data
+      })
+  }
 }
 
 
